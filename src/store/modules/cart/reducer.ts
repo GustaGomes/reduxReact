@@ -6,7 +6,8 @@ const INITIAL_STATE: ICartState = {
 };
 
 
-const cart: Reducer<ICartState> = () => {
+const cart: Reducer<ICartState> = ( state, action ) => {
+    console.log('fdssd', state, action)
     return INITIAL_STATE;
 }
 
