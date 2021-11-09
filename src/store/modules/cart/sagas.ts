@@ -1,7 +1,16 @@
-import { all, takeLatest } from 'redux-saga/effects'; 
+import { all, takeLatest, select } from 'redux-saga/effects'; 
+import { IState } from '../..';
+import { addProductToCart } from './actions';
 
-function checkProductStock(){
-    console.log("Pelé no carrinho")
+type checkProductStockRequest = ReturnType<typeof addProductToCart>;
+
+function* checkProductStock( action :checkProductStockRequest){
+    const { payload } = action
+    console.log('Maradona', payload.product.id );
+    const currentQuantity: number = yield select((state: IState) => {
+        return state.cart.items.find( item => item.product.id == payload.product.id )?.quantity ?? 0
+    });
+    console.log("Dentro do carrinho tenho"," ", currentQuantity," - ", payload.product.title );
 }
 
 export default all([
